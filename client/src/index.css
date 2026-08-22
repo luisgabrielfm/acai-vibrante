@@ -1,9 +1,15 @@
+/**
+ * Uva-Doce Pop: fundamentos visuais para uma marca de açaí em roxo açaí,
+ * amarelo-manteiga, creme e rosa chiclete, com textura de cartaz e stickers.
+ */
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-display: "Bowlby One SC", sans-serif;
+  --font-body: "Nunito Sans", sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -27,151 +33,108 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
 }
 
 :root {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-600);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.235 0.015 65);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.235 0.015 65);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.235 0.015 65);
-  --secondary: oklch(0.98 0.001 286.375);
-  --secondary-foreground: oklch(0.4 0.015 65);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.141 0.005 285.823);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.623 0.214 259.815);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.235 0.015 65);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
-  --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.623 0.214 259.815);
+  --radius: 1rem;
+  --background: #fff6df;
+  --foreground: #331046;
+  --card: #fff6df;
+  --card-foreground: #331046;
+  --popover: #fff6df;
+  --popover-foreground: #331046;
+  --primary: #4c146d;
+  --primary-foreground: #fff6df;
+  --secondary: #f5c942;
+  --secondary-foreground: #331046;
+  --muted: #f4e8ce;
+  --muted-foreground: #5a3867;
+  --accent: #ff5c93;
+  --accent-foreground: #fff6df;
+  --destructive: #bc2859;
+  --destructive-foreground: #fff6df;
+  --border: #331046;
+  --input: #f4e8ce;
+  --ring: #ff5c93;
 }
 
-.dark {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-500);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.85 0.005 65);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.85 0.005 65);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.85 0.005 65);
-  --secondary: oklch(0.24 0.006 286.033);
-  --secondary-foreground: oklch(0.7 0.005 65);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground:  oklch(0.92 0.005 65);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.488 0.243 264.376);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.85 0.005 65);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground:  oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.488 0.243 264.376);
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  button:not(:disabled),
-  [role="button"]:not([aria-disabled="true"]),
-  [type="button"]:not(:disabled),
-  [type="submit"]:not(:disabled),
-  [type="reset"]:not(:disabled),
-  a[href],
-  select:not(:disabled),
-  input[type="checkbox"]:not(:disabled),
-  input[type="radio"]:not(:disabled) {
-    @apply cursor-pointer;
-  }
-}
+* { border-color: var(--border); }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: "Nunito Sans", sans-serif; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible { outline: 3px solid #ff5c93; outline-offset: 4px; }
 
 @layer components {
-  /**
-   * Custom container utility that centers content and adds responsive padding.
-   *
-   * This overrides Tailwind's default container behavior to:
-   * - Auto-center content (mx-auto)
-   * - Add responsive horizontal padding
-   * - Set max-width for large screens
-   *
-   * Usage: <div className="container">...</div>
-   *
-   * For custom widths, use max-w-* utilities directly:
-   * <div className="max-w-6xl mx-auto px-4">...</div>
-   */
-  .container {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem; /* 16px - mobile padding */
-    padding-right: 1rem;
-  }
+  .font-display { font-family: "Bowlby One SC", sans-serif; }
+  .font-body { font-family: "Nunito Sans", sans-serif; }
+  .nav-link { position: relative; transition: color 180ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .nav-link::after { position: absolute; bottom: -6px; left: 0; height: 2px; width: 100%; transform: scaleX(0); transform-origin: left; background: #f5c942; content: ""; transition: transform 180ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .nav-link:hover { color: #f5c942; }
+  .nav-link:hover::after { transform: scaleX(1); }
+  .cart-trigger { display: inline-flex; align-items: center; gap: .55rem; border: 2px solid #fff6df; border-radius: 999px; padding: .62rem .75rem .62rem 1rem; font-family: "Nunito Sans", sans-serif; font-size: .72rem; font-weight: 900; letter-spacing: .09em; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background 160ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .cart-trigger:hover { transform: translateY(-2px); background: #fff6df; color: #4c146d; }
+  .cart-trigger:active, .cta-button:active, .add-button:active, .whatsapp-button:active { transform: scale(.97); }
+  .cart-count { display: inline-flex; height: 1.25rem; min-width: 1.25rem; align-items: center; justify-content: center; border-radius: 999px; background: #f5c942; color: #331046; font-size: .7rem; font-weight: 1000; }
+  .hero-shell { min-height: 640px; }
+  .hero-dot-pattern { position: absolute; inset: 0; opacity: .14; background-image: radial-gradient(#fff6df 1.4px, transparent 1.4px); background-size: 18px 18px; mask-image: linear-gradient(90deg, #000, transparent 60%); }
+  .hero-blob { position: absolute; top: 50%; left: 50%; height: 85%; width: 80%; transform: translate(-50%, -48%) rotate(-8deg); border-radius: 42% 58% 42% 58% / 51% 39% 61% 49%; background: #f5c942; box-shadow: 20px 20px 0 #ff5c93; }
+  .hero-product { animation: hover-product 4.5s cubic-bezier(.45, .05, .55, .95) infinite alternate; }
+  .sticker { display: inline-block; border: 3px solid #331046; border-radius: 50%; padding: .8rem .95rem; text-align: center; font-family: "Bowlby One SC", sans-serif; font-size: .84rem; line-height: .9; letter-spacing: -.07em; box-shadow: 4px 5px 0 #331046; }
+  .cta-button { display: inline-flex; align-items: center; justify-content: center; gap: .65rem; border: 3px solid #331046; border-radius: 999px; background: #f5c942; padding: .92rem 1.25rem; color: #331046; font-family: "Nunito Sans", sans-serif; font-size: .8rem; font-weight: 1000; letter-spacing: .06em; box-shadow: 5px 5px 0 #331046; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 160ms cubic-bezier(0.23, 1, 0.32, 1), background 160ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .cta-button:hover { transform: translate(-2px, -3px); box-shadow: 8px 8px 0 #331046; background: #fff6df; }
+  .cta-button-dark { background: #4c146d; border-color: #331046; color: #fff6df; box-shadow: 5px 5px 0 #331046; }
+  .cta-button-dark:hover { background: #331046; }
+  .section-kicker { display: inline-block; border: 2px solid #331046; border-radius: 999px; padding: .48rem .75rem; font-family: "Nunito Sans", sans-serif; font-size: .65rem; font-weight: 1000; letter-spacing: .13em; line-height: 1; }
+  .section-title { font-family: "Bowlby One SC", sans-serif; font-size: clamp(3rem, 6vw, 6.4rem); line-height: .82; letter-spacing: -.075em; }
+  .menu-card { position: relative; overflow: hidden; border: 3px solid #331046; border-radius: 1.5rem 1.5rem 1rem 1rem; box-shadow: 7px 8px 0 #331046; transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 220ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .menu-card:hover { transform: translate(-4px, -5px) rotate(-.4deg); box-shadow: 12px 14px 0 #331046; }
+  .menu-card-cream { background: #fffdf5; }
+  .menu-card-yellow { background: #f5c942; }
+  .menu-card-pink { background: #ffb3ca; }
+  .add-button { display: inline-flex; align-items: center; justify-content: center; gap: .35rem; border: 2px solid #331046; border-radius: .75rem; background: #4c146d; padding: .82rem .8rem; color: #fff6df; font-family: "Nunito Sans", sans-serif; font-size: .72rem; font-weight: 1000; letter-spacing: .1em; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background 160ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .add-button:hover { transform: translateY(-2px); background: #331046; }
+  .builder-lines { position: absolute; inset: 0; background: repeating-linear-gradient(-16deg, transparent 0 43px, rgba(51,16,70,.13) 44px 46px, transparent 47px 88px); opacity: .9; }
+  .builder-panel { border: 3px solid #331046; border-radius: 1.4rem; background: #fff6df; padding: 1.25rem; box-shadow: 9px 10px 0 #331046; }
+  .builder-label { font-family: "Bowlby One SC", sans-serif; font-size: 1.15rem; letter-spacing: -.055em; color: #331046; }
+  .size-choice { display: flex; flex-direction: column; align-items: flex-start; border: 2px solid #331046; border-radius: 1rem; background: #fff6df; padding: 1rem; text-align: left; color: #331046; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), background 160ms cubic-bezier(0.23, 1, 0.32, 1), color 160ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .size-choice strong { margin-top: .35rem; font-family: "Nunito Sans", sans-serif; font-size: .85rem; font-weight: 1000; }
+  .size-choice:hover { transform: translateY(-3px); }
+  .size-choice-active { background: #4c146d; color: #fff6df; box-shadow: 4px 4px 0 #ff5c93; }
+  .topping-choice { display: inline-flex; align-items: center; gap: .38rem; border: 2px solid #331046; border-radius: 999px; background: #fffdf5; padding: .5rem .7rem; color: #331046; font-family: "Nunito Sans", sans-serif; font-size: .76rem; font-weight: 900; transition: transform 150ms cubic-bezier(0.23, 1, 0.32, 1), background 150ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .topping-choice:hover { transform: translateY(-2px); }
+  .topping-choice b { color: #4c146d; font-size: .68rem; }
+  .topping-choice-active { background: #ff5c93; color: #fff6df; box-shadow: 3px 3px 0 #331046; }
+  .topping-choice-active b { color: #fff6df; }
+  .topping-dot { height: .65rem; width: .65rem; border: 1.5px solid #331046; border-radius: 50%; }
+  .cart-panel { border: 3px solid #331046; border-radius: 1.4rem; background: #fff6df; padding: 1.35rem; box-shadow: 9px 10px 0 #331046; }
+  .quantity-control { display: inline-flex; align-items: center; gap: .45rem; border: 2px solid #331046; border-radius: 999px; padding: .18rem; font-family: "Nunito Sans", sans-serif; font-size: .78rem; font-weight: 1000; }
+  .quantity-control button { display: grid; height: 1.45rem; width: 1.45rem; place-items: center; border-radius: 50%; transition: background 140ms ease-out; }
+  .quantity-control button:hover { background: #f5c942; }
+  .quantity-control span { min-width: 1rem; text-align: center; }
+  .whatsapp-button { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border: 3px solid #331046; border-radius: 999px; background: #48b36d; padding: .9rem 1rem; color: #fff; font-family: "Nunito Sans", sans-serif; font-size: .75rem; font-weight: 1000; letter-spacing: .07em; box-shadow: 4px 4px 0 #331046; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), box-shadow 160ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .whatsapp-button:hover { transform: translate(-2px, -3px); box-shadow: 7px 7px 0 #331046; }
+  .review-reserved { min-height: 230px; border: 3px dashed #331046; border-radius: 1.3rem; padding: 1.35rem; background: #fffdf5; }
+  .review-reserved-2 { transform: translateY(1.25rem) rotate(1.5deg); background: #ffb3ca; }
+  .review-reserved-3 { transform: rotate(-1deg); background: #f5c942; }
+  .footer-label { font-family: "Nunito Sans", sans-serif; font-size: .65rem; font-weight: 1000; letter-spacing: .14em; color: #f5c942; }
+  .footer-copy { display: flex; align-items: flex-start; gap: .45rem; margin-top: .8rem; font-family: "Nunito Sans", sans-serif; font-size: .85rem; font-weight: 700; line-height: 1.55; color: #fff6df; }
+  .footer-link { transition: color 160ms ease-out; }
+  .footer-link:hover { color: #f5c942; }
+  .whatsapp-float { position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 40; display: grid; height: 3.5rem; width: 3.5rem; place-items: center; border: 3px solid #331046; border-radius: 50%; background: #48b36d; color: #fff; box-shadow: 4px 5px 0 #331046; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1); }
+  .whatsapp-float:hover { transform: translateY(-4px) rotate(-5deg); }
+  .mobile-cart-bar { position: fixed; right: .9rem; bottom: .85rem; left: .9rem; z-index: 35; display: flex; align-items: center; justify-content: space-between; gap: .75rem; border: 3px solid #331046; border-radius: 999px; background: #4c146d; padding: .5rem .55rem .5rem 1rem; color: #fff6df; box-shadow: 4px 5px 0 #331046; }
+}
 
-  .flex {
-    min-height: 0;
-    min-width: 0;
-  }
+@keyframes hover-product { from { transform: translateY(-3px) rotate(-1deg); } to { transform: translateY(6px) rotate(1.5deg); } }
 
-  @media (min-width: 640px) {
-    .container {
-      padding-left: 1.5rem; /* 24px - tablet padding */
-      padding-right: 1.5rem;
-    }
-  }
+@media (max-width: 767px) {
+  .hero-shell { min-height: 735px; }
+  .hero-blob { height: 90%; width: 75%; }
+  .whatsapp-float { display: none; }
+  .review-reserved-2 { transform: none; }
+  .review-reserved-3 { transform: none; }
+}
 
-  @media (min-width: 1024px) {
-    .container {
-      padding-left: 2rem; /* 32px - desktop padding */
-      padding-right: 2rem;
-      max-width: 1280px; /* Standard content width */
-    }
-  }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
