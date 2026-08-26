@@ -21,3 +21,8 @@
 - [x] Converter os cards de “Escolha seu açaí” em um carrossel com controles acessíveis.
 - [x] Adaptar a navegação por toque e manter a ação de adicionar ao carrinho em cada card.
 - [x] Validar o carrossel em desktop e celular e publicar a revisão.
+
+## Ajuste de imagens do carrossel
+
+- [x] Corrigir o enquadramento das imagens para exibir os copos completos.
+- [x] Validar o novo enquadramento em desktop e celular e publicar a revisão.
