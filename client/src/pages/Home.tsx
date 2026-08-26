@@ -2,10 +2,11 @@
  * Uva-Doce Pop: landing page brasileira de açaí com cartazes sobrepostos,
  * blocos de roxo intenso, amarelo-manteiga, creme e rosa chiclete.
  */
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   ArrowDownRight,
   Bike,
+  ChevronLeft,
   ChevronRight,
   Clock3,
   Instagram,
@@ -30,6 +31,7 @@ const productMenu = [
     price: 19.9,
     image: "/manus-storage/acai-vibrante-morango-granola_be3585b7.png",
     tone: "cream",
+    badge: "mais pedido",
   },
   {
     id: "pacoca",
@@ -38,6 +40,7 @@ const productMenu = [
     price: 22.9,
     image: "/manus-storage/acai-vibrante-pacoca-nutella_4a242e5f.png",
     tone: "yellow",
+    badge: "viciado em paçoca",
   },
   {
     id: "choco",
@@ -46,6 +49,34 @@ const productMenu = [
     price: 21.9,
     image: "/manus-storage/acai-vibrante-banana-choco_da865e53.png",
     tone: "pink",
+    badge: "novo queridinho",
+  },
+  {
+    id: "tropical",
+    name: "Tropical Mix",
+    ingredients: "Açaí, manga, kiwi, banana, coco e granola.",
+    price: 23.9,
+    image: "/manus-storage/acai-vibrante-tropical_bfb9662e.png",
+    tone: "yellow",
+    badge: "cheio de fruta",
+  },
+  {
+    id: "cookie",
+    name: "Cookie Blast",
+    ingredients: "Açaí, brownie, cookie, creme branco e chocolate.",
+    price: 25.9,
+    image: "/manus-storage/acai-vibrante-cookie_daf0098d.png",
+    tone: "pink",
+    badge: "pra chocar",
+  },
+  {
+    id: "ninho",
+    name: "Morango Ninho",
+    ingredients: "Açaí, morango, creme de leite em pó, banana e granola.",
+    price: 24.9,
+    image: "/manus-storage/acai-vibrante-morango-ninho_74083e9e.png",
+    tone: "cream",
+    badge: "cremosidade pura",
   },
 ];
 
@@ -114,6 +145,7 @@ export default function Home() {
   ]);
   const [selectedExtras, setSelectedExtras] = useState<ExtraId[]>([]);
   const [cart, setCart] = useState<CartItem[]>([]);
+  const menuCarouselRef = useRef<HTMLDivElement>(null);
 
   const customPrice = useMemo(() => {
     const extraPrice = extrasMenu
@@ -223,6 +255,16 @@ export default function Home() {
 
   const scrollToBuilder = () => {
     document.getElementById("monte")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollMenu = (direction: "previous" | "next") => {
+    const carousel = menuCarouselRef.current;
+    if (!carousel) return;
+    const distance = Math.min(carousel.clientWidth * 0.9, 440);
+    carousel.scrollBy({
+      left: direction === "next" ? distance : -distance,
+      behavior: "smooth",
+    });
   };
 
   const finishOrder = () => {
@@ -346,14 +388,21 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid gap-7 md:grid-cols-3 md:gap-8">
-              {productMenu.map((product, index) => (
-                <article className={`menu-card menu-card-${product.tone}`} key={product.id}>
+            <div className="mb-5 flex items-center justify-between gap-4">
+              <p className="font-body text-xs font-black uppercase tracking-[0.13em] text-[#4c146d]">Deslize para conhecer todos</p>
+              <div className="menu-carousel-controls">
+                <button onClick={() => scrollMenu("previous")} aria-label="Ver opções anteriores" aria-controls="menu-carousel"><ChevronLeft size={22} strokeWidth={3} /></button>
+                <button onClick={() => scrollMenu("next")} aria-label="Ver próximas opções" aria-controls="menu-carousel"><ChevronRight size={22} strokeWidth={3} /></button>
+              </div>
+            </div>
+            <div id="menu-carousel" className="menu-carousel" ref={menuCarouselRef} role="region" aria-label="Opções de açaí">
+              {productMenu.map((product) => (
+                <article className={`menu-card menu-slide menu-card-${product.tone}`} key={product.id}>
                   <div className="relative h-[292px] overflow-hidden border-b-[3px] border-[#331046] md:h-[330px]">
                     <span className="absolute left-5 top-5 z-10 rounded-full border-[2px] border-[#331046] bg-[#fff6df] px-3 py-1 font-body text-[10px] font-black uppercase tracking-[0.14em] text-[#331046]">
-                      {index === 0 ? "mais pedido" : index === 1 ? "viciado em paçoca" : "novo queridinho"}
+                      {product.badge}
                     </span>
-                    <img src={product.image} alt={product.name} className="h-full w-full object-cover object-center transition duration-500 hover:scale-105" />
+                    <img src={product.image} alt={product.name} className="h-full w-full object-cover object-center transition duration-500 hover:scale-105" loading="lazy" decoding="async" />
                     <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#331046]/20 to-transparent" />
                   </div>
                   <div className="p-5 md:p-6">
