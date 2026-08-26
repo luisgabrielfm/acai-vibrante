@@ -50,24 +50,38 @@ const productMenu = [
 ];
 
 const sizes = {
-  300: { label: "300ml", price: 14.9, caption: "pra matar a vontade" },
-  500: { label: "500ml", price: 18.9, caption: "o queridinho" },
-  700: { label: "700ml", price: 23.9, caption: "fome de verdade" },
+  300: { label: "Pequeno", volume: "300ml", price: 12.9, caption: "na medida" },
+  400: { label: "Médio", volume: "400ml", price: 15.9, caption: "o queridinho" },
+  500: { label: "Grande", volume: "500ml", price: 17.9, caption: "fome de verdade" },
 } as const;
 
-const toppings = [
-  { id: "morango", label: "Morango", price: 2.5, color: "#ff5c93" },
-  { id: "banana", label: "Banana", price: 2, color: "#f4c842" },
-  { id: "granola", label: "Granola", price: 2.5, color: "#f3b13b" },
-  { id: "leite", label: "Leite em pó", price: 2, color: "#fff7e7" },
-  { id: "pacoca", label: "Paçoca", price: 2.5, color: "#d79442" },
-  { id: "nutella", label: "Nutella", price: 3.5, color: "#8b513b" },
-  { id: "chocolate", label: "Chocolate", price: 2.5, color: "#5c342c" },
-  { id: "kiwi", label: "Kiwi", price: 2.5, color: "#83c86b" },
+const accompaniments = [
+  { id: "banana", label: "Banana", color: "#f4c842" },
+  { id: "pacoca", label: "Paçoca", color: "#d79442" },
+  { id: "granola", label: "Granola", color: "#f3b13b" },
+  { id: "leite-condensado", label: "Leite condensado", color: "#fff0bf" },
+  { id: "leite-em-po", label: "Leite em pó", color: "#fff7e7" },
+  { id: "cobertura-chocolate", label: "Cobertura de chocolate", color: "#5c342c" },
+  { id: "cobertura-morango", label: "Cobertura de morango", color: "#ff5c93" },
+  { id: "confetes", label: "Confetes", color: "#8f51d6" },
+  { id: "chocolate-em-po", label: "Chocolate em pó", color: "#7c4838" },
+  { id: "doce-de-leite", label: "Doce de leite", color: "#c78338" },
+] as const;
+
+const extrasMenu = [
+  { id: "morango", label: "Morango", price: 4.9, color: "#ff5c93" },
+  { id: "kiwi", label: "Kiwi", price: 4.9, color: "#83c86b" },
+  { id: "creme-de-avela", label: "Creme de avelã", price: 5.9, color: "#8b513b" },
+  { id: "castanhas", label: "Castanhas", price: 5.9, color: "#bf8050" },
+  { id: "cerejas", label: "Cerejas", price: 6.9, color: "#b21e45" },
+  { id: "chocolate", label: "Chocolate", price: 6.9, color: "#5c342c" },
+  { id: "chantilly", label: "Chantilly", price: 6.9, color: "#fff7e7" },
+  { id: "sorvete", label: "Sorvete", price: 6.9, color: "#f6d7a6" },
 ] as const;
 
 type SizeKey = keyof typeof sizes;
-type ToppingId = (typeof toppings)[number]["id"];
+type AccompanimentId = (typeof accompaniments)[number]["id"];
+type ExtraId = (typeof extrasMenu)[number]["id"];
 type CartItem = {
   id: string;
   name: string;
@@ -94,18 +108,19 @@ function Sticker({
 
 export default function Home() {
   const [selectedSize, setSelectedSize] = useState<SizeKey>(500);
-  const [selectedToppings, setSelectedToppings] = useState<ToppingId[]>([
+  const [selectedAccompaniments, setSelectedAccompaniments] = useState<AccompanimentId[]>([
     "banana",
     "granola",
   ]);
+  const [selectedExtras, setSelectedExtras] = useState<ExtraId[]>([]);
   const [cart, setCart] = useState<CartItem[]>([]);
 
   const customPrice = useMemo(() => {
-    const toppingPrice = toppings
-      .filter((topping) => selectedToppings.includes(topping.id))
-      .reduce((sum, topping) => sum + topping.price, 0);
-    return sizes[selectedSize].price + toppingPrice;
-  }, [selectedSize, selectedToppings]);
+    const extraPrice = extrasMenu
+      .filter((extra) => selectedExtras.includes(extra.id))
+      .reduce((sum, extra) => sum + extra.price, 0);
+    return sizes[selectedSize].price + extraPrice;
+  }, [selectedSize, selectedExtras]);
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   const total = cart.reduce(
@@ -113,11 +128,26 @@ export default function Home() {
     0,
   );
 
-  const toggleTopping = (toppingId: ToppingId) => {
-    setSelectedToppings((current) =>
-      current.includes(toppingId)
-        ? current.filter((id) => id !== toppingId)
-        : [...current, toppingId],
+  const toggleAccompaniment = (accompanimentId: AccompanimentId) => {
+    setSelectedAccompaniments((current) => {
+      if (current.includes(accompanimentId)) {
+        return current.filter((id) => id !== accompanimentId);
+      }
+      if (current.length === 3) {
+        toast.info("Seu copo já tem 3 acompanhamentos.", {
+          description: "Troque um deles se quiser experimentar outro sabor.",
+        });
+        return current;
+      }
+      return [...current, accompanimentId];
+    });
+  };
+
+  const toggleExtra = (extraId: ExtraId) => {
+    setSelectedExtras((current) =>
+      current.includes(extraId)
+        ? current.filter((id) => id !== extraId)
+        : [...current, extraId],
     );
   };
 
@@ -155,10 +185,24 @@ export default function Home() {
   };
 
   const addCustomAçaí = () => {
-    const extras = selectedToppings.map(
-      (id) => toppings.find((topping) => topping.id === id)?.label ?? id,
+    const selectedAccompanimentLabels = selectedAccompaniments.map(
+      (id) => accompaniments.find((item) => item.id === id)?.label ?? id,
     );
-    addToCart(`Açaí do seu jeito — ${sizes[selectedSize].label}`, customPrice, extras);
+    const selectedExtraLabels = selectedExtras.map((id) => {
+      const extra = extrasMenu.find((item) => item.id === id);
+      return extra ? `${extra.label} (+${formatBRL(extra.price)})` : id;
+    });
+    const details = [
+      selectedAccompanimentLabels.length
+        ? `Acompanhamentos: ${selectedAccompanimentLabels.join(", ")}`
+        : "Sem acompanhamentos",
+      ...(selectedExtraLabels.length ? [`Extras: ${selectedExtraLabels.join(", ")}`] : []),
+    ];
+    addToCart(
+      `Açaí do seu jeito — ${sizes[selectedSize].label} ${sizes[selectedSize].volume}`,
+      customPrice,
+      details,
+    );
   };
 
   const updateQuantity = (id: string, direction: 1 | -1) => {
@@ -346,7 +390,7 @@ export default function Home() {
                     <span className="font-body text-xs font-black uppercase tracking-wider text-[#4c146d]">açaí bem cremoso</span>
                   </div>
                   <div className="grid gap-3 sm:grid-cols-3">
-                    {([300, 500, 700] as SizeKey[]).map((size) => {
+                    {([300, 400, 500] as SizeKey[]).map((size) => {
                       const item = sizes[size];
                       return (
                         <button
@@ -355,8 +399,8 @@ export default function Home() {
                           className={`size-choice ${selectedSize === size ? "size-choice-active" : ""}`}
                           aria-pressed={selectedSize === size}
                         >
-                          <span className="font-display text-3xl tracking-[-0.07em]">{item.label}</span>
-                          <span className="font-body text-xs font-extrabold">{item.caption}</span>
+                          <span className="font-display text-2xl tracking-[-0.07em]">{item.label}</span>
+                          <span className="font-body text-xs font-extrabold">{item.volume} · {item.caption}</span>
                           <strong>{formatBRL(item.price)}</strong>
                         </button>
                       );
@@ -366,22 +410,45 @@ export default function Home() {
 
                 <div className="mt-9">
                   <div className="mb-4 flex items-center justify-between gap-3">
-                    <h3 className="builder-label">2. O QUE VAI JUNTO?</h3>
-                    <span className="font-body text-xs font-black uppercase tracking-wider text-[#4c146d]">cada extra soma no total</span>
+                    <h3 className="builder-label">2. ACOMPANHAMENTOS</h3>
+                    <span className="font-body text-xs font-black uppercase tracking-wider text-[#4c146d]">ATÉ 3 OPÇÕES · INCLUSOS</span>
                   </div>
                   <div className="flex flex-wrap gap-2.5">
-                    {toppings.map((topping) => {
-                      const active = selectedToppings.includes(topping.id);
+                    {accompaniments.map((accompaniment) => {
+                      const active = selectedAccompaniments.includes(accompaniment.id);
                       return (
                         <button
-                          key={topping.id}
-                          onClick={() => toggleTopping(topping.id)}
+                          key={accompaniment.id}
+                          onClick={() => toggleAccompaniment(accompaniment.id)}
                           className={`topping-choice ${active ? "topping-choice-active" : ""}`}
                           aria-pressed={active}
                         >
-                          <span className="topping-dot" style={{ backgroundColor: topping.color }} />
-                          {topping.label}
-                          <b>+{formatBRL(topping.price)}</b>
+                          <span className="topping-dot" style={{ backgroundColor: accompaniment.color }} />
+                          {accompaniment.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="mt-8">
+                  <div className="mb-4 flex items-center justify-between gap-3">
+                    <h3 className="builder-label">3. QUER TURBINAR?</h3>
+                    <span className="font-body text-xs font-black uppercase tracking-wider text-[#4c146d]">EXTRAS OPCIONAIS</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2.5">
+                    {extrasMenu.map((extra) => {
+                      const active = selectedExtras.includes(extra.id);
+                      return (
+                        <button
+                          key={extra.id}
+                          onClick={() => toggleExtra(extra.id)}
+                          className={`topping-choice ${active ? "topping-choice-active" : ""}`}
+                          aria-pressed={active}
+                        >
+                          <span className="topping-dot" style={{ backgroundColor: extra.color }} />
+                          {extra.label}
+                          <b>+{formatBRL(extra.price)}</b>
                         </button>
                       );
                     })}
@@ -390,7 +457,7 @@ export default function Home() {
 
                 <div className="mt-9 flex flex-col justify-between gap-5 border-t-[3px] border-dashed border-[#331046]/50 pt-6 sm:flex-row sm:items-center">
                   <div>
-                    <p className="font-body text-xs font-black uppercase tracking-[0.12em] text-[#5a3867]">seu copo tá dando</p>
+                    <p className="font-body text-xs font-black uppercase tracking-[0.12em] text-[#5a3867]">tamanho + extras selecionados</p>
                     <p className="font-display text-5xl tracking-[-0.07em] text-[#4c146d]">{formatBRL(customPrice)}</p>
                   </div>
                   <button onClick={addCustomAçaí} className="cta-button cta-button-dark">
