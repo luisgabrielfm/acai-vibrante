@@ -328,7 +328,6 @@ export default function Home() {
               />
               <Sticker className="absolute left-1 top-10 -rotate-[14deg] bg-[#f5c942] text-[#331046] md:left-4 md:top-24">TÁ<br />GELADO</Sticker>
               <Sticker className="absolute bottom-7 right-0 rotate-[9deg] bg-[#ff5c93] text-[#fff6df] md:bottom-16 md:right-1">TOPPINGS<br />A MAIS</Sticker>
-              <span className="absolute bottom-1 left-1/4 font-display text-4xl text-[#fff6df] md:bottom-8 md:text-6xl">YUM!</span>
             </div>
           </div>
           <div className="relative z-10 -mb-px h-12 bg-[#fff6df] [clip-path:polygon(0_52%,8%_72%,18%_42%,32%_69%,44%_35%,55%_70%,72%_37%,84%_75%,100%_45%,100%_100%,0_100%)]" />
