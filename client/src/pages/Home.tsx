@@ -398,12 +398,12 @@ export default function Home() {
             <div id="menu-carousel" className="menu-carousel" ref={menuCarouselRef} role="region" aria-label="Opções de açaí">
               {productMenu.map((product) => (
                 <article className={`menu-card menu-slide menu-card-${product.tone}`} key={product.id}>
-                  <div className="relative flex h-[292px] items-center justify-center overflow-hidden border-b-[3px] border-[#331046] bg-[#fff6df] p-2 md:h-[330px] md:p-3">
+                  <div className="relative h-[292px] overflow-hidden border-b-[3px] border-[#331046] bg-[#fff6df] md:h-[330px]">
                     <span className="absolute left-5 top-5 z-10 rounded-full border-[2px] border-[#331046] bg-[#fff6df] px-3 py-1 font-body text-[10px] font-black uppercase tracking-[0.14em] text-[#331046]">
                       {product.badge}
                     </span>
-                    <img src={product.image} alt={product.name} className="h-full w-full object-contain object-center transition duration-500 hover:scale-[1.035]" loading="lazy" decoding="async" />
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#331046]/10 to-transparent" />
+                    <img src={product.image} alt={product.name} className="h-full w-full object-cover object-center transition duration-500 hover:scale-105" loading="lazy" decoding="async" />
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#331046]/20 to-transparent" />
                   </div>
                   <div className="p-5 md:p-6">
                     <div className="flex items-start justify-between gap-4">

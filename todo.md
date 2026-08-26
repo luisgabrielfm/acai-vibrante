@@ -26,3 +26,9 @@
 
 - [x] Corrigir o enquadramento das imagens para exibir os copos completos.
 - [x] Validar o novo enquadramento em desktop e celular e publicar a revisão.
+
+## Refinamento visual do cardápio
+
+- [x] Ajustar os cards para exibir três opções por vez no desktop.
+- [x] Restaurar o preenchimento da foto no topo dos cards, seguindo a composição de referência.
+- [x] Validar a nova composição em desktop e celular e publicar a revisão.
